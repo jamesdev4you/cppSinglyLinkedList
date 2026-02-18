@@ -1,88 +1,68 @@
-// C++ program to implement singly linked list using a class
 #include <iostream>
 using namespace std;
 
-// Node class to represent a node of the linked list.
-class Node {
-  public:
-    int data;
-    Node *next;
-
-    // Default constructor
-    Node() {
-        data = 0;
-        next = NULL;
-    }
-
-    // Parameterised Constructor
-    Node(int data) {
-        this->data = data;
-        this->next = NULL;
-    }
+class Bankstatement
+{
+    public:
+        int balence = 5000;
 };
 
-// Linked list class to implement a singly linked list
-class Linkedlist {
-    Node *head;
+class Node
+{
+    public: 
+        Node(int moneyInOrOut, Node* next)
+        {
+            this->moneyInOrOut = moneyInOrOut;
+            this->next = next;
+        };
+        Node* next;
+        int moneyInOrOut;
 
-  public:
-    // Default constructor
-    Linkedlist() {
-        head = NULL;
-    }
+};
 
-    // Function to insert a node at the start of the
-    // linked list
-    void paychecks(int data) {
-
-        // Create the new Node
-        Node *newNode = new Node(data);
-
-        // Assign to head of the list is empty
-        if (head == NULL) {
-            head = newNode;
-            return;
+class SinglyLinkedList
+{
+    public:
+    int balance;
+        SinglyLinkedList()
+        {
+            next = nullptr;
         }
-
-        // Insert the newly created linked list at the head
-        newNode->next = this->head;
-        this->head = newNode;
-    }
-
-    // Function to print the linked list.
-    void print() {
-        Node *temp = head;
-
-        // Check for empty list
-        if (head == NULL) {
-            cout << "List empty" << endl;
-            return;
+        void AddNode(int moneyInOrOut)
+        {
+            balance += moneyInOrOut;
+            Node* temp = new Node(moneyInOrOut, next);
+            next = temp;
         }
-
-        // Traverse the list
-        while (temp != NULL) {
-            cout << "$" << temp->data << " ";
+        void PrintMe()
+        {
+        Node* temp = next;
+        while (temp != nullptr)
+        {
+            cout << temp->moneyInOrOut << endl;
             temp = temp->next;
         }
-    }
+            cout << "Final Balance: " << balance << endl;
+        }
+    
+    private:
+        Node* next;
+        
 };
 
-int main() {
+int main()
+{
+    SinglyLinkedList list;
 
-    // Creating a LinkedList object
-    Linkedlist list;
+    list.balance = 5000;
+    cout << "Starting Balence is: " << list.balance << endl;
 
-    // Inserting nodes
-    list.paychecks(4000);
-    list.paychecks(4219);
-    list.paychecks(3209);
-    list.paychecks(3203);
+    list.AddNode(-400);
+    list.AddNode(-600);
+    list.AddNode(-800);
+    list.AddNode(600);
+    list.AddNode(6000);
+    list.AddNode(-5403);
+    list.PrintMe();
 
-    cout << "Paychecks in order are: ";
-
-    // Print the list
-    list.print();
-    cout << endl;
-
-    return 0;
 }
